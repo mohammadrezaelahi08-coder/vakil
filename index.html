@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سامانه نوبت‌دهی آنلاین - دفتر وکالت محمد الهی</title>
+<!-- بارگذاری فونت لوکس و استاندارد وزیرمتن -->
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+<style>
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, Tahoma, sans-serif;
+}
+
+body {
+/* پس‌زمینه تخصصی حقوقی با تصویر ترازوی عدالت و لایه تاریک‌کننده شیک */
+background: linear-gradient(rgba(10, 17, 30, 0.85), rgba(10, 17, 30, 0.93)),
+url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=1920&auto=format&fit=crop') no-repeat center center fixed;
+background-size: cover;
+color: #0f172a;
+padding: 25px 12px;
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+}
+
+.card {
+background: rgba(255, 255, 255, 0.97);
+padding: 32px 22px;
+border-radius: 20px;
+box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+width: 100%;
+max-width: 480px;
+border: 1px solid rgba(212, 175, 55, 0.4);
+border-top: 6px solid #d4af37;
+backdrop-filter: blur(10px);
+}
+
+.header { text-align: center; margin-bottom: 22px; }
+.header h1 {
+font-size: 22px;
+color: #0f172a;
+font-weight: 800;
+margin-bottom: 8px;
+}
+.header .badge {
+color: #d4af37;
+background: #0f172a;
+padding: 6px 14px;
+border-radius: 50px;
+font-size: 11px;
+font-weight: 700;
+display: inline-block;
+border: 1px solid #d4af37;
+}
+
+.about-box {
+background: #f8fafc;
+border-right: 4px solid #d4af37;
+border-radius: 10px;
+padding: 14px;
+margin-bottom: 20px;
+font-size: 12.5px;
+color: #334155;
+line-height: 1.8;
+text-align: justify;
+border: 1px solid #e2e8f0;
+}
+
+/* کشوهای منو به سبک استاندارد HTML5 */
+details {
+background: #ffffff;
+border: 1px solid #cbd5e1;
+border-radius: 12px;
+margin-bottom: 12px;
+overflow: hidden;
+}
+summary {
+padding: 14px 16px;
+font-size: 13px;
+font-weight: 700;
+color: #0f172a;
+cursor: pointer;
+background: #f8fafc;
+list-style: none;
+display: flex;
+justify-content: space-between;
+align-items: center;
+user-select: none;
+}
+summary::-webkit-details-marker { display: none; }
+summary::after {
+content: '▼';
+font-size: 11px;
+color: #d4af37;
+transition: transform 0.2s;
+}
+details[open] summary::after {
+transform: rotate(180deg);
+}
+.dropdown-body {
+padding: 14px 16px;
+font-size: 12.5px;
+color: #334155;
+line-height: 1.7;
+background: #ffffff;
+border-top: 1px solid #e2e8f0;
+}
+
+/* دکمه اصلی رزرو نوبت */
+.main-btn {
+width: 100%;
+background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+color: #ffffff;
+border: 1px solid #d4af37;
+padding: 16px;
+border-radius: 12px;
+font-size: 14px;
+font-weight: 800;
+cursor: pointer;
+margin-top: 16px;
+box-shadow: 0 6px 20px rgba(15, 23, 42, 0.3);
+transition: all 0.2s ease;
+}
+.main-btn:hover { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); }
+
+/* فرم نوبت‌دهی */
+#booking-section {
+display: none;
+margin-top: 22px;
+border-top: 2px dashed #cbd5e1;
+padding-top: 20px;
+}
+.form-title {
+font-size: 14px;
+color: #0f172a;
+font-weight: 800;
+margin-bottom: 16px;
+text-align: center;
+background: #f1f5f9;
+padding: 10px;
+border-radius: 8px;
+}
+.form-group { margin-bottom: 15px; }
+label { display: block; margin-bottom: 6px; font-weight: 700; color: #334155; font-size: 12px; }
+input, select {
+width: 100%;
+padding: 12px 14px;
+border: 1px solid #cbd5e1;
+border-radius: 10px;
+font-size: 13px;
+background: #ffffff;
+color: #0f172a;
+outline: none;
+}
+input:focus, select:focus {
+border-color: #d4af37;
+box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+.submit-btn {
+width: 100%;
+background: linear-gradient(135deg, #d4af37 0%, #b59226 100%);
+color: #0f172a;
+border: none;
+padding: 15px;
+border-radius: 10px;
+font-size: 15px;
+font-weight: 800;
+cursor: pointer;
+margin-top: 10px;
+box-shadow: 0 4px 12px rgba(212, 175, 55, 0.35);
+}
+.back-link {
+display: block;
+text-align: center;
+font-size: 12px;
+color: #64748b;
+margin-top: 14px;
+cursor: pointer;
+font-weight: 700;
+text-decoration: underline;
+}
+.footer { text-align: center; font-size: 11px; color: #94a3b8; margin-top: 20px; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="header">
+<h1>⚖️ دفتر وکالت محمد الهی</h1>
+<div class="badge">وکیل پایه یک دادگستری • کارشناس ارشد حقوق خصوصی</div>
+</div>
+
+<div class="about-box">
+جناب آقای <strong>محمد الهی</strong> از وکلای برجسته دادگستری در مشهد با سال‌ها سابقه درخشان در پیگیری پرونده‌های حقوقی، کیفری، خانواده، ثبتی، شرکت‌ها و تنظیم قراردادها می‌باشند.
+</div>
+
+<!-- منوهای کشویی اطلاعات دفتر -->
+<details>
+<summary>📍 آدرس دفتر وکالت</summary>
+<div class="dropdown-body">
+مشهد، بلوار مدرس، ساختمان شماره ۱۲، طبقه ۶، واحد ۶/۲۳
+</div>
+</details>
+
+<details>
+<summary>📞 تلفن ثابت دفتر</summary>
+<div class="dropdown-body">
+۰۵۱ - ۳۲۲۲۴۴۳۱
+</div>
+</details>
+
+<details>
+<summary>📱 شماره همراه جهت هماهنگی</summary>
+<div class="dropdown-body">
+۰۹۱۵۵۱۲۱۹۴۱<br><small style="color:#64748b;">ساعات حضور: روزهای زوج (شنبه، دوشنبه، چهارشنبه) ۱۶:۰۰ الی ۱۹:۰۰</small>
+</div>
+</details>
+
+<!-- دکمه ورودی فرم رزرو -->
+<button class="main-btn" id="open-btn">📅 دریافت نوبت مشاوره حضوری</button>
+
+<!-- فرم رزرو نوبت -->
+<div id="booking-section">
+<div class="form-title">📋 فرم رزرو نوبت مشاوره حضوری</div>
+<form action="https://formspree.io/f/xblyqjby" method="POST">
+<div class="form-group">
+<label for="name">نام و نام خانوادگی:</label>
+<input type="text" id="name" name="name" required placeholder="نام کامل خود را وارد کنید">
+</div>
+
+<div class="form-group">
+<label for="phone">شماره همراه جهت هماهنگی:</label>
+<input type="tel" id="phone" name="phone" required placeholder="09123456789">
+</div>
+
+<div class="form-group">
+<label for="date">انتخاب روز و تاریخ مشاوره:</label>
+<select id="date" name="date" required>
+<option value="">-- در حال بارگذاری تاریخ‌های روزهای زوج --</option>
+</select>
+</div>
+
+<div class="form-group">
+<label for="time">انتخاب ساعت مراجعه:</label>
+<select id="time" name="time" required>
+<option value="">-- انتخاب ساعت --</option>
+<option value="16:00 - 17:00">عصر ۱۶:۰۰ الی ۱۷:۰۰</option>
+<option value="17:00 - 18:00">عصر ۱۷:۰۰ الی ۱۸:۰۰</option>
+<option value="18:00 - 19:00">عصر ۱۸:۰۰ الی ۱۹:۰۰</option>
+</select>
+</div>
+
+<button type="submit" class="submit-btn">ثبت قطعی نوبت مشاوره</button>
+<span class="back-link" id="close-btn">← بازگشت به صفحه اصلی</span>
+</form>
+</div>
+
+<div class="footer">
+سامانه رسمی نوبت‌دهی دفتر وکالت محمد الهی
+</div>
+</div>
+
+<script>
+// عملکرد نمایش و مخفی‌سازی فرم
+document.getElementById('open-btn').onclick = function() {
+document.getElementById('booking-section').style.display = 'block';
+window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+};
+
+document.getElementById('close-btn').onclick = function() {
+document.getElementById('booking-section').style.display = 'none';
+window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+// الگوریتم استاندارد تولید تاریخ‌های خودکار روزهای زوج
+function renderDates() {
+const selectDate = document.getElementById('date');
+if (!selectDate) return;
+
+const days = ['یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'جمعه', 'شنبه'];
+const months = ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"];
+
+selectDate.innerHTML = '<option value="">-- انتخاب تاریخ مشاوره --</option>';
+let count = 0;
+let now = new Date();
+
+for (let i = 0; i <= 60; i++) {
+let d = new Date();
+d.setDate(now.getDate() + i);
+let dayNum = d.getDay();
+
+// انتخاب شنبه (6)، دوشنبه (1) و چهارشنبه (3)
+if (dayNum === 6 || dayNum === 1 || dayNum === 3) {
+try {
+let parts = new Intl.DateTimeFormat('fa-IR', { year: 'numeric', month: 'numeric', day: 'numeric', calendar: 'persian' }).formatToParts(d);
+let pYear = parts.find(p => p.type === 'year').value;
+let pMonthVal = parseInt(parts.find(p => p.type === 'month').value);
+let pDay = parts.find(p => p.type === 'day').value;
+
+let monthName = months[pMonthVal - 1];
+let monthNumFormatted = String(pMonthVal).padStart(2, '0');
+let dayNumFormatted = String(pDay).padStart(2, '0');
+
+// خروجی شفاف: چهارشنبه - ۲۴ مهر (۱۴۰۵/۰۷/۲۴)
+let label = ${days[dayNum]} - ${dayNumFormatted} ${monthName} (${pYear}/${monthNumFormatted}/${dayNumFormatted});
+
+let opt = document.createElement('option');
+opt.value = label;
+opt.textContent = label;
+selectDate.appendChild(opt);
+count++;
+} catch(e) {}
+if (count >= 10) break;
+}
+}
+}
+
+if (document.readyState === 'loading') {
+document.addEventListener('DOMContentLoaded', renderDates);
+} else {
+renderDates();
+}
+</script>
+
+</body>
+</html>
