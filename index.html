@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سامانه نوبت‌دهی دفتر وکالت محمد الهی</title>
+<style>
+* { box-sizing: border-box; font-family: 'Tahoma', sans-serif; }
+body {
+background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+padding: 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+margin: 0;
+}
+.card {
+background: #ffffff;
+padding: 30px;
+border-radius: 20px;
+box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+width: 100%;
+max-width: 400px;
+border-top: 6px solid #d97706;
+}
+.header { text-align: center; margin-bottom: 25px; }
+.icon { font-size: 40px; margin-bottom: 5px; }
+h1 { color: #0f172a; font-size: 20px; margin: 5px 0; font-weight: bold; }
+.subtitle { color: #d97706; font-size: 13px; font-weight: bold; margin-top: 5px; }
+.info-badge {
+background: #fef3c7;
+color: #92400e;
+padding: 10px 12px;
+border-radius: 10px;
+font-size: 12px;
+text-align: center;
+margin-bottom: 20px;
+line-height: 1.6;
+}
+label { display: block; margin-bottom: 6px; color: #334155; font-size: 13px; font-weight: bold; }
+input, select {
+width: 100%;
+padding: 12px;
+margin-bottom: 18px;
+border: 1px solid #cbd5e1;
+border-radius: 10px;
+font-size: 14px;
+background: #f8fafc;
+outline: none;
+}
+button {
+width: 100%;
+background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+color: white;
+padding: 14px;
+border: none;
+border-radius: 10px;
+font-size: 16px;
+cursor: pointer;
+font-weight: bold;
+}
+.success-msg { display: none; color: #166534; background: #dcfce7; padding: 12px; border-radius: 10px; text-align: center; font-size: 14px; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="header">
+<div class="icon">⚖️</div>
+<h1>دفتر وکالت محمد الهی</h1>
+<div class="subtitle">سامانه آنلاین ثبت نوبت مشاوره</div>
+</div>
+
+<div class="info-badge">
+📌 <b>روزهای پذیرش:</b> فقط روزهای زوج (شنبه، دوشنبه، چهارشنبه)<br>
+⏰ <b>ساعت حضور در دفتر:</b> ۱۶:۰۰ الی ۱۹:۰۰ (۴ تا ۷ عصر)
+</div>
+
+<form id="bookingForm" action="https://formspree.io/f/xvkzwyzo" method="POST" onsubmit="handleSubmit(event)">
+<label>نام و نام خانوادگی موکل:</label>
+<input type="text" name="نام موکل" required placeholder="مثال: علی رضایی">
+
+<label>شماره تلفن همراه:</label>
+<input type="tel" name="شماره تلفن" required placeholder="0915..." pattern="09[0-9]{9}">
+
+<label>انتخاب روز نوبت (روزهای زوج):</label>
+<select name="تاریخ نوبت" id="dateSelect" required>
+<option value="">لطفاً تاریخ مورد نظر را انتخاب کنید</option>
+<option value="چهارشنبه ۲۳ مهر">چهارشنبه ۲۳ مهر</option>
+<option value="شنبه ۲۶ مهر">شنبه ۲۶ مهر</option>
+<option value="دوشنبه ۲۸ مهر">دوشنبه ۲۸ مهر</option>
+<option value="چهارشنبه ۳۰ مهر">چهارشنبه ۳۰ مهر</option>
+<option value="شنبه ۳ آبان">شنبه ۳ آبان</option>
+<option value="دوشنبه ۵ آبان">دوشنبه ۵ آبان</option>
+<option value="چهارشنبه ۷ آبان">چهارشنبه ۷ آبان</option>
+<option value="شنبه ۱۰ آبان">شنبه ۱۰ آبان</option>
+<option value="دوشنبه ۱۲ آبان">دوشنبه ۱۲ آبان</option>
+<option value="چهارشنبه ۱۴ آبان">چهارشنبه ۱۴ آبان</option>
+<option value="شنبه ۱۷ آبان">شنبه ۱۷ آبان</option>
+<option value="دوشنبه ۱۹ آبان">دوشنبه ۱۹ آبان</option>
+<option value="چهارشنبه ۲۱ آبان">چهارشنبه ۲۱ آبان</option>
+</select>
+
+<label>انتخاب بازه زمانی حضور (ساعت ۴ تا ۷ عصر):</label>
+<select name="ساعت مراجعه" required>
+<option value="">لطفاً ساعت مراجعه را انتخاب کنید</option>
+<option value="ساعت ۱۶:۰۰ الی ۱۷:۰۰ (۴ تا ۵ عصر)">ساعت ۱۶:۰۰ الی ۱۷:۰۰ (۴ تا ۵ عصر)</option>
+<option value="ساعت ۱۷:۰۰ الی ۱۸:۰۰ (۵ تا ۶ عصر)">ساعت ۱۷:۰۰ الی ۱۸:۰۰ (۵ تا ۶ عصر)</option>
+<option value="ساعت ۱۸:۰۰ الی ۱۹:۰۰ (۶ تا ۷ عصر)">ساعت ۱۸:۰۰ الی ۱۹:۰۰ (۶ تا ۷ عصر)</option>
+</select>
+
+<button type="submit" id="submitBtn">ثبت نوبت نهایی</button>
+</form>
+
+<div id="successMsg" class="success-msg">
+✅ نوبت شما با موفقیت ثبت شد. اطلاعات برای دفتر وکالت ارسال گردید.
+</div>
+</div>
+
+<script>
+async function handleSubmit(event) {
+event.preventDefault();
+var form = event.target;
+var btn = document.getElementById('submitBtn');
+btn.innerText = 'در حال ثبت...';
+btn.disabled = true;
+
+var data = new FormData(event.target);
+fetch(event.target.action, {
+method: form.method,
+body: data,
+headers: { 'Accept': 'application/json' }
+}).then(response => {
+if (response.ok) {
+document.getElementById('bookingForm').style.display = 'none';
+document.getElementById('successMsg').style.display = 'block';
+} else {
+alert("خطا در ثبت. لطفاً دوباره تلاش کنید.");
+btn.innerText = 'ثبت نوبت نهایی';
+btn.disabled = false;
+}
+});
+}
+</script>
+
+</body>
+</html>
