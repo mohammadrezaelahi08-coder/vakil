@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101a2b">
+  <meta name="description" content="سامانه نوبت‌دهی دفتر وکالت محمد الهی در مشهد">
+  <title>دفتر وکالت محمد الهی | رزرو نوبت مشاوره</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #101a2b;
+      --navy-2: #17263b;
+      --gold: #e2ad43;
+      --gold-dark: #bd8825;
+      --ink: #172033;
+      --muted: #64748b;
+      --line: #e5eaf1;
+      --paper: #ffffff;
+      --soft: #f5f7fa;
+      --radius: 20px;
+      --shadow: 0 16px 45px rgba(16, 26, 43, .10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body {
+      margin: 0; color: var(--ink); background: #f7f8fb;
+      font-family: "Vazirmatn", Tahoma, sans-serif; line-height: 1.8;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    .container { width: min(1160px, calc(100% - 36px)); margin-inline: auto; }
+    .topbar {
+      position: sticky; top: 0; z-index: 50; color: white;
+      background: rgba(16, 26, 43, .96); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(226, 173, 67, .2);
+    }
+    .nav { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 230px; }
+    .brand-mark {
+      width: 48px; height: 48px; display: grid; place-items: center; flex: 0 0 auto;
+      border: 1px solid rgba(226,173,67,.55); border-radius: 15px;
+      color: var(--gold); font-size: 27px; background: rgba(226,173,67,.08);
+    }
+    .brand strong { display: block; font-size: 16px; line-height: 1.5; }
+    .brand small { display: block; color: #bdc8d8; font-size: 11px; }
+    .nav-links { display: flex; align-items: center; gap: 25px; color: #e5eaf2; font-size: 13px; }
+    .nav-links a:hover { color: var(--gold); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      border: 0; border-radius: 12px; padding: 12px 20px; font-weight: 800;
+      cursor: pointer; transition: transform .2s, box-shadow .2s, background .2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-gold { color: #1b2230; background: linear-gradient(135deg, #f2cb70, var(--gold)); box-shadow: 0 8px 22px rgba(226,173,67,.23); }
+    .btn-gold:hover { box-shadow: 0 12px 28px rgba(226,173,67,.32); }
+    .btn-outline { color: white; border: 1px solid rgba(255,255,255,.38); background: rgba(255,255,255,.05); }
+    .menu-toggle { display: none; color: white; background: transparent; border: 1px solid #536174; border-radius: 10px; padding: 6px 12px; font-size: 22px; }
+    .hero {
+      color: white; min-height: 520px; display: flex; align-items: center; position: relative; overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(9,16,27,.18) 0%, rgba(9,16,27,.62) 45%, rgba(9,16,27,.97) 100%),
+        linear-gradient(0deg, rgba(9,16,27,.35), rgba(9,16,27,.08)),
+        url("https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=2000&q=85") center/cover;
+    }
+    .hero-content { width: min(620px, 100%); padding-block: 78px; margin-right: 0; }
+    .eyebrow { color: var(--gold); font-weight: 800; font-size: 13px; letter-spacing: .2px; }
+    .hero h1 { font-size: clamp(30px, 4.4vw, 52px); line-height: 1.35; margin: 12px 0 16px; font-weight: 800; }
+    .hero h1 span { color: var(--gold); }
+    .hero p { color: #e1e7ef; font-size: 16px; max-width: 580px; margin: 0 0 25px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-note { margin-top: 25px; display: flex; gap: 20px; flex-wrap: wrap; color: #d0d8e4; font-size: 12px; }
+    .hero-note span::before { content: "✓"; color: var(--gold); font-weight: 900; margin-left: 7px; }
+    .service-strip { background: white; border-bottom: 1px solid var(--line); }
+    .services { display: grid; grid-template-columns: repeat(6, 1fr); padding: 28px 0; gap: 8px; }
+    .service { text-align: center; padding: 12px 8px; border-radius: 14px; transition: .2s; }
+    .service:hover { background: var(--soft); transform: translateY(-3px); }
+    .service-icon { width: 54px; height: 54px; display: grid; place-items: center; margin: 0 auto 8px; border-radius: 18px; background: #f1f4f8; font-size: 25px; }
+    .service strong { display: block; font-size: 14px; }
+    .service small { display: block; color: var(--muted); font-size: 11px; margin-top: 3px; }
+    section { padding: 64px 0; }
+    .section-heading { margin-bottom: 26px; }
+    .section-heading h2 { margin: 0 0 5px; font-size: clamp(23px, 3vw, 31px); color: var(--navy); }
+    .section-heading p { margin: 0; color: var(--muted); font-size: 14px; }
+    .heading-line { width: 58px; height: 4px; background: var(--gold); border-radius: 8px; margin-top: 12px; }
+    .booking-grid { display: grid; grid-template-columns: 1.08fr .92fr; gap: 22px; align-items: stretch; }
+    .panel { background: white; border: 1px solid #edf0f5; border-radius: var(--radius); box-shadow: var(--shadow); }
+    .booking-panel { padding: clamp(22px, 4vw, 34px); }
+    .panel-title { display: flex; align-items: center; gap: 12px; margin: 0 0 24px; color: var(--navy); font-size: 22px; }
+    .panel-title .symbol { color: var(--gold-dark); font-size: 26px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .field { margin-bottom: 16px; }
+    .field.full { grid-column: 1 / -1; }
+    label { display: block; margin-bottom: 7px; font-size: 13px; font-weight: 700; color: #344155; }
+    .required { color: #d94a4a; }
+    input, select {
+      width: 100%; min-height: 49px; border: 1px solid #dbe2ec; border-radius: 11px;
+      background: #fff; padding: 11px 13px; color: var(--ink); outline: none; transition: .2s;
+    }
+    input::placeholder { color: #9aa5b5; }
+    input:focus, select:focus { border-color: var(--gold-dark); box-shadow: 0 0 0 4px rgba(226,173,67,.15); }
+    .form-hint { font-size: 11px; color: var(--muted); margin-top: 6px; }
+    .submit-btn { width: 100%; min-height: 53px; margin-top: 5px; font-size: 15px; }
+    .privacy { display: flex; gap: 8px; color: var(--muted); font-size: 11px; margin-top: 13px; align-items: flex-start; }
+    .contact-panel {
+      overflow: hidden; position: relative; padding: 30px; color: white;
+      background: linear-gradient(145deg, rgba(16,26,43,.94), rgba(23,38,59,.97)),
+        url("https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1000&q=80") center/cover;
+    }
+    .contact-panel::after { content: "⚖"; position: absolute; left: -15px; bottom: -85px; font-size: 260px; line-height: 1; color: rgba(226,173,67,.055); pointer-events: none; }
+    .contact-panel h2 { margin: 0 0 22px; font-size: 23px; position: relative; z-index: 1; }
+    .contact-item { position: relative; z-index: 1; display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,.13); }
+    .contact-item:last-of-type { border-bottom: 0; }
+    .contact-icon { width: 43px; height: 43px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 14px; background: rgba(226,173,67,.12); color: var(--gold); font-size: 20px; }
+    .contact-item strong { display: block; font-size: 13px; margin-bottom: 4px; }
+    .contact-item p { margin: 0; color: #d1d9e5; font-size: 12px; overflow-wrap: anywhere; }
+    .contact-quote { position: relative; z-index: 1; margin-top: 24px; padding: 15px; border-right: 3px solid var(--gold); background: rgba(255,255,255,.05); color: #e5eaf2; font-size: 13px; border-radius: 8px; }
+    .why-section { background: white; border-block: 1px solid var(--line); }
+    .features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .feature { padding: 24px 18px; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
+    .feature-icon { color: var(--gold-dark); font-size: 27px; }
+    .feature h3 { font-size: 15px; margin: 8px 0 5px; }
+    .feature p { color: var(--muted); font-size: 12px; margin: 0; }
+    .faq-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    details { border: 1px solid var(--line); border-radius: 13px; background: white; overflow: hidden; }
+    summary { cursor: pointer; list-style: none; padding: 16px 18px; font-weight: 700; font-size: 13px; display: flex; justify-content: space-between; gap: 12px; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; color: var(--gold-dark); font-size: 20px; line-height: 1; }
+    details[open] summary::after { content: "−"; }
+    details p { margin: 0; padding: 0 18px 17px; color: var(--muted); font-size: 12px; }
+    footer { background: #0c1422; color: white; padding: 35px 0 20px; }
+    .footer-main { display: flex; justify-content: space-between; align-items: flex-start; gap: 28px; }
+    .footer-brand p { color: #aeb9c9; font-size: 12px; max-width: 360px; }
+    .footer-links { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12px; color: #d6deea; }
+    .footer-links a:hover { color: var(--gold); }
+    .copyright { border-top: 1px solid rgba(255,255,255,.12); margin-top: 25px; padding-top: 16px; color: #91a0b4; font-size: 11px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .toast { display: none; padding: 16px; border-radius: 14px; margin-bottom: 18px; font-size: 13px; line-height: 1.9; }
+    .toast.success { background: #effbf4; color: #17643a; border: 1px solid #a7e4bd; }
+    .toast.error { background: #fff3f2; color: #a52c26; border: 1px solid #f1b8b4; }
+    .success-inner { display: flex; align-items: center; gap: 12px; }
+    .success-check { width: 42px; height: 42px; flex: 0 0 42px; display: grid; place-items: center; border-radius: 50%; color: white; background: #209653; font-size: 25px; font-weight: 900; animation: check-pop .45s cubic-bezier(.2,.8,.2,1) both; box-shadow: 0 5px 14px #20965333; }
+    @keyframes check-pop { 0% { transform: scale(.35) rotate(-18deg); opacity: 0; } 70% { transform: scale(1.15); opacity: 1; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .success-check { animation: none; } }
+    @media (max-width: 900px) {
+      .nav-links { gap: 14px; }
+      .brand { min-width: auto; }
+      .brand small { max-width: 190px; }
+      .booking-grid { grid-template-columns: 1fr; }
+      .contact-panel { min-height: 390px; }
+      .services { grid-template-columns: repeat(3, 1fr); }
+      .features { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 680px) {
+      .container { width: min(100% - 24px, 560px); }
+      .nav { min-height: 70px; gap: 10px; }
+      .brand-mark { width: 41px; height: 41px; font-size: 23px; }
+      .brand strong { font-size: 13px; }
+      .brand small { font-size: 9px; max-width: 175px; }
+      .menu-toggle { display: block; }
+      .nav-links {
+        display: none; position: absolute; top: 70px; right: 0; left: 0; padding: 16px 24px 20px;
+        background: var(--navy); border-bottom: 1px solid rgba(226,173,67,.2); flex-direction: column; align-items: stretch;
+      }
+      .nav-links.open { display: flex; }
+      .nav > .btn { display: none; }
+      .hero { min-height: 510px; background-position: 42% center; }
+      .hero-content { padding-block: 60px; }
+      .hero p { font-size: 14px; }
+      .hero-note { gap: 9px 15px; }
+      section { padding: 46px 0; }
+      .services { padding: 18px 0; grid-template-columns: repeat(2, 1fr); }
+      .service { padding: 10px 4px; }
+      .form-grid { grid-template-columns: 1fr; gap: 0; }
+      .field.full { grid-column: auto; }
+      .booking-panel, .contact-panel { padding: 22px 18px; }
+      .panel-title { font-size: 19px; }
+      .features, .faq-list { grid-template-columns: 1fr; }
+      .footer-main { flex-direction: column; }
+      .copyright { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="صفحه اصلی دفتر وکالت">
+        <span class="brand-mark" aria-hidden="true">⚖</span>
+        <span><strong>دفتر وکالت محمد الهی</strong><small>وکیل پایه یک دادگستری · کارشناس ارشد حقوق خصوصی</small></span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="باز کردن منو" aria-expanded="false">☰</button>
+      <nav class="nav-links" id="navLinks" aria-label="منوی اصلی">
+        <a href="#home">صفحه اصلی</a><a href="#services">خدمات</a><a href="#about">درباره دفتر</a><a href="#faq">سؤالات متداول</a><a href="#contact">تماس با ما</a>
+      </nav>
+      <a class="btn btn-gold" href="#booking">▣ رزرو نوبت مشاوره</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <div class="eyebrow">همراه شما در مسیر حقوقی</div>
+          <h1>دفتر وکالت <span>محمد الهی</span></h1>
+          <p>ارائه خدمات حقوقی و قضایی با رویکردی حرفه‌ای، دقیق و مسئولانه. برای هماهنگی مشاوره حضوری، نوبت موردنظر خود را به‌سادگی ثبت کنید.</p>
+          <div class="hero-actions">
+            <a class="btn btn-gold" href="#booking">رزرو نوبت مشاوره <span aria-hidden="true">←</span></a>
+            <a class="btn btn-outline" href="#services">مشاهده خدمات</a>
+          </div>
+          <div class="hero-note"><span>پیگیری مسئولانه</span><span>حفظ محرمانگی اطلاعات</span><span>هماهنگی آسان نوبت</span></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="service-strip" id="services">
+      <div class="container services">
+        <a class="service" href="#booking"><span class="service-icon">⚖</span><strong>پرونده‌های حقوقی</strong><small>دعاوی و اختلافات حقوقی</small></a>
+        <a class="service" href="#booking"><span class="service-icon">🛡</span><strong>پرونده‌های کیفری</strong><small>دفاع و پیگیری پرونده</small></a>
+        <a class="service" href="#booking"><span class="service-icon">⌂</span><strong>امور خانواده</strong><small>دعاوی و مسائل خانوادگی</small></a>
+        <a class="service" href="#booking"><span class="service-icon">▤</span><strong>امور ثبتی</strong><small>ثبت، اسناد و املاک</small></a>
+        <a class="service" href="#booking"><span class="service-icon">▦</span><strong>شرکت‌ها</strong><small>امور و اختلافات شرکتی</small></a>
+        <a class="service" href="#booking"><span class="service-icon">✍</span><strong>تنظیم قرارداد</strong><small>بررسی و تنظیم قراردادها</small></a>
+      </div>
+    </div>
+
+    <section id="booking">
+      <div class="container">
+        <div class="section-heading">
+          <h2>رزرو نوبت مشاوره حضوری</h2>
+          <p>اطلاعات خود را وارد کنید تا درخواست شما برای دفتر ارسال شود.</p>
+          <div class="heading-line"></div>
+        </div>
+        <div class="booking-grid">
+          <div class="panel booking-panel">
+            <h2 class="panel-title"><span class="symbol">▦</span> فرم درخواست نوبت</h2>
+            <div class="toast" id="formNotice" role="status"></div>
+            <form id="bookingForm" action="https://api.web3forms.com/submit" method="POST">
+              <input type="hidden" name="access_key" value="efe7e282-d6d8-4412-87d8-dacb842fea77">
+              <input type="hidden" name="subject" value="درخواست نوبت مشاوره جدید - دفتر وکالت محمد الهی">
+              <input type="hidden" name="from_name" value="سامانه نوبت‌دهی دفتر وکالت محمد الهی">
+              <input type="hidden" name="redirect" value="">
+              <div class="form-grid">
+                <div class="field full">
+                  <label for="name">نام و نام خانوادگی <span class="required">*</span></label>
+                  <input id="name" name="نام_مراجعه_کننده" autocomplete="name" required maxlength="100" placeholder="نام کامل خود را وارد کنید">
+                </div>
+                <div class="field full">
+                  <label for="phone">شماره همراه جهت هماهنگی <span class="required">*</span></label>
+                  <input id="phone" name="شماره_تماس" type="tel" inputmode="tel" autocomplete="tel" required pattern="[\+0-9۰-۹٠-٩\s\-]{10,16}" maxlength="16" placeholder="مثلاً 09123456789">
+                  <div class="form-hint">شماره را با دقت وارد کنید تا امکان هماهنگی وجود داشته باشد.</div>
+                </div>
+                <div class="field">
+                  <label for="date">تاریخ مراجعه <span class="required">*</span></label>
+                  <select id="date" name="تاریخ_انتخابی" required>
+                    <option value="">انتخاب تاریخ</option>
+                    <option value="شنبه">شنبه</option>
+                    <option value="دوشنبه">دوشنبه</option>
+                    <option value="چهارشنبه">چهارشنبه</option>
+                  </select>
+                  <div class="form-hint">روزهای حضور اعلام‌شده: شنبه، دوشنبه و چهارشنبه.</div>
+                </div>
+                <div class="field">
+                  <label for="time">ساعت مراجعه <span class="required">*</span></label>
+                  <select id="time" name="ساعت_انتخابی" required>
+                    <option value="">انتخاب ساعت</option>
+                    <option value="۱۶:۰۰ تا ۱۷:۰۰">۱۶:۰۰ تا ۱۷:۰۰</option>
+                    <option value="۱۷:۰۰ تا ۱۸:۰۰">۱۷:۰۰ تا ۱۸:۰۰</option>
+                    <option value="۱۸:۰۰ تا ۱۹:۰۰">۱۸:۰۰ تا ۱۹:۰۰</option>
+                  </select>
+                </div>
+                <div class="field full">
+                  <button class="btn btn-gold submit-btn" type="submit">ثبت درخواست نوبت <span aria-hidden="true">➜</span></button>
+                </div>
+              </div>
+              <div class="privacy"><span aria-hidden="true">🔒</span><span>ثبت فرم به معنی تأیید قطعی نوبت نیست؛ زمان مراجعه پس از بررسی و هماهنگی دفتر تأیید می‌شود.</span></div>
+            </form>
+          </div>
+
+          <aside class="contact-panel" id="contact">
+            <h2>اطلاعات تماس و آدرس</h2>
+            <div class="contact-item">
+              <span class="contact-icon">⌖</span><div><strong>آدرس دفتر وکالت</strong><p>مشهد، بلوار مدرس، ساختمان شماره ۱۲، طبقه ۶، واحد ۶/۲۳</p></div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">☎</span><div><strong>تلفن ثابت دفتر</strong><p><a href="tel:05132224431">۰۵۱-۳۲۲۲۴۴۳۱</a></p></div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">▣</span><div><strong>شماره همراه جهت هماهنگی</strong><p><a href="tel:09155121941">۰۹۱۵۵۱۲۱۹۴۱</a></p></div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">◷</span><div><strong>ساعات حضور</strong><p>شنبه، دوشنبه و چهارشنبه<br>از ساعت ۱۶:۰۰ تا ۱۹:۰۰</p></div>
+            </div>
+            <div class="contact-quote">برای جلوگیری از تداخل برنامه‌ها، لطفاً پیش از مراجعه، نوبت خود را با دفتر هماهنگ کنید.</div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="why-section" id="about">
+      <div class="container">
+        <div class="section-heading">
+          <h2>چرا دفتر وکالت محمد الهی؟</h2>
+          <p>توجه به جزئیات، ارتباط روشن و پیگیری مسئولانه در مسیر رسیدگی به پرونده‌ها.</p>
+          <div class="heading-line"></div>
+        </div>
+        <div class="features">
+          <article class="feature"><div class="feature-icon">⚖</div><h3>تجربه و تخصص حقوقی</h3><p>رسیدگی به موضوعات حقوقی در چارچوب تخصص و مقررات مربوط.</p></article>
+          <article class="feature"><div class="feature-icon">◷</div><h3>هماهنگی آسان</h3><p>امکان ارسال درخواست نوبت از طریق فرم آنلاین در هر زمان.</p></article>
+          <article class="feature"><div class="feature-icon">♧</div><h3>ارتباط شفاف</h3><p>توضیح روند کار و هماهنگی‌های لازم با مراجعه‌کننده.</p></article>
+          <article class="feature"><div class="feature-icon">▣</div><h3>توجه به محرمانگی</h3><p>اطلاعات را فقط در حد لازم برای هماهنگی و بررسی درخواست ارائه کنید.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="section-heading">
+          <h2>سؤالات متداول</h2>
+          <p>پاسخ چند پرسش رایج درباره ثبت درخواست نوبت.</p>
+          <div class="heading-line"></div>
+        </div>
+        <div class="faq-list">
+          <details><summary>آیا ثبت فرم به معنی رزرو قطعی است؟</summary><p>خیر. ثبت فرم فقط درخواست شما را ارسال می‌کند. نوبت پس از بررسی ظرفیت و هماهنگی دفتر تأیید می‌شود.</p></details>
+          <details><summary>ساعات حضور دفتر چه زمانی است؟</summary><p>طبق اطلاعات فعلی، ساعات حضور اعلام‌شده شنبه، دوشنبه و چهارشنبه از ساعت ۱۶ تا ۱۹ است. پیش از مراجعه هماهنگ کنید.</p></details>
+          <details><summary>اگر نتوانم فرم را ثبت کنم چه کنم؟</summary><p>می‌توانید با شماره ثابت دفتر یا شماره همراه درج‌شده در بخش تماس، هماهنگی کنید.</p></details>
+          <details><summary>چه اطلاعاتی در فرم وارد کنم؟</summary><p>نام و نام خانوادگی، شماره همراه و زمان پیشنهادی کافی است. از نوشتن جزئیات محرمانه پرونده در فرم خودداری کنید.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a class="brand" href="#home"><span class="brand-mark">⚖</span><span><strong>دفتر وکالت محمد الهی</strong><small>وکیل پایه یک دادگستری</small></span></a>
+          <p>سامانه درخواست نوبت مشاوره حضوری دفتر وکالت محمد الهی در مشهد.</p>
+        </div>
+        <nav class="footer-links" aria-label="پیوندهای پایین صفحه">
+          <a href="#home">صفحه اصلی</a><a href="#services">خدمات</a><a href="#about">درباره دفتر</a><a href="#booking">رزرو نوبت</a><a href="#contact">تماس با ما</a>
+        </nav>
+      </div>
+      <div class="copyright"><span>© تمامی حقوق این وب‌سایت محفوظ است.</span><span>طراحی‌شده با تمرکز بر تجربه کاربری فارسی</span></div>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.textContent = isOpen ? '×' : '☰';
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.textContent = '☰';
+    }));
+
+    // توجه: ارسال فرم به Web3Forms انجام می‌شود؛ تنظیم ایمیل مقصد در پنل Web3Forms لازم است.
+    const form = document.getElementById('bookingForm');
+    const notice = document.getElementById('formNotice');
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalText = submitButton.innerHTML;
+      submitButton.disabled = true;
+      submitButton.textContent = 'در حال ارسال درخواست…';
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        const result = await response.json();
+        if (response.ok && result.success) {
+          notice.className = 'toast success';
+          notice.innerHTML = '<div class="success-inner"><span class="success-check" aria-hidden="true">✓</span><div><strong>درخواست شما با موفقیت ارسال شد.</strong><br>این پیام به معنی تأیید قطعی نوبت نیست؛ دفتر برای هماهنگی نهایی با شما تماس می‌گیرد.</div></div>';
+          notice.style.display = 'block';
+          form.reset();
+          notice.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          throw new Error(result.message || 'ارسال انجام نشد');
+        }
+      } catch (error) {
+        notice.className = 'toast error';
+        notice.textContent = 'ارسال فرم انجام نشد. لطفاً اتصال اینترنت را بررسی کنید یا با دفتر تماس بگیرید.';
+        notice.style.display = 'block';
+      } finally {
+        submitButton.disabled = false;
+        submitButton.innerHTML = originalText;
+      }
+    });
+  </script>
+</body>
+</html>
